@@ -3,27 +3,34 @@
 
 enum cellType
 {
-	boundary = false,
-	fluid = true
+	boundaryCell = false,
+	fluidCell = true
 	
 };
 
 class medium
 {
 public:
-	medium(unsigned int, unsigned int);
+	medium(int, int);
 	~medium();
 
-	void set_state(unsigned int y, unsigned int x, cellType state){
+	void set_state(int y, int x, cellType state){
 		if (y >= 0 && y < ny && x >= 0 && x < nx)
 			*(body + y * nx + x) = state;
 	}
 
+	bool get_state(int y, int x){
+		return(y >= 0 && y < ny && x >= 0 && x < nx) ? *(body + y * nx + x) : false;
+	}
+
+	int get_Nx(){ return ny; }
+	int get_Ny(){ return ny; }
+
 	void const display();
 
 private:
-	unsigned int nx;
-	unsigned int ny;
+	int nx;
+	int ny;
 	bool* body;
 };
 
